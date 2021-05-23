@@ -1,4 +1,4 @@
-* docker-poetry
+* docker-django
 
 :目的:dockerのはじめからpoetryを使いたい(pythonの仮想環境を作りたくない)
 
@@ -7,58 +7,93 @@
 - Dockerfileの =FROM python:3.8.8-slim as python-base= を変える
 
 
-** poetry init
+** install django
 
 #+BEGIN_SRC sh :exports both
-docker-compose -f docker-compose.init.yml build
-docker-compose -f docker-compose.init.yml exec bash
+docker-compose build
+docker-compose run app bash
+#+END_SRC
+
+#+BEGIN_SRC sh :exports both
+$ docker-compose run app bash
+Creating docker-django_app_run ... done
+root@b2af538c8d17:/app# poetry add django
+Skipping virtualenv creation, as specified in config file.
+Using version ^3.2.3 for Django
+
+Updating dependencies
+Resolving dependencies... (0.6s)
+
+Writing lock file
+
+Package operations: 4 installs, 0 updates, 0 removals
+
+  • Installing asgiref (3.3.4)
+  • Installing pytz (2021.1)
+  • Installing sqlparse (0.4.1)
+  • Installing django (3.2.3)
+
 #+END_SRC
 
 
-以下の２つを実行する（必要なパッケージはここでインストール）
-- =poetry init=
-- =poetry install=
+- その後 =docker-compose build= を行えば =pyproject.toml= に従ったdockerが出来る
+
+** 開発用パッケージをインストール
 
 #+BEGIN_SRC sh :exports both
-# poetry init
+root@b2af538c8d17:/app# poetry add --dev pytest pytest-django flake8 black django-extensions ipython
+Skipping virtualenv creation, as specified in config file.
+Using version ^6.2.4 for pytest
+Using version ^4.3.0 for pytest-django
+Using version ^3.9.2 for flake8
+Using version ^21.5b1 for black
+Using version ^3.1.3 for django-extensions
+Using version ^7.23.1 for ipython
 
-This command will guide you through creating your pyproject.toml config.
+Updating dependencies
+Resolving dependencies... (11.2s)
 
-Package name [pysetup]:
-Version [0.1.0]:
-Description []:
-Author [n9d <39367157+n9d@users.noreply.github.com>, n to skip]:
-License []:
-Compatible Python versions [^3.8]:
+Writing lock file
 
-Would you like to define your main dependencies interactively? (yes/no) [yes] no
-Would you like to define your development dependencies interactively? (yes/no) [yes] no
-Generated file
+Package operations: 34 installs, 0 updates, 0 removals
 
-[tool.poetry]
-name = "pysetup"
-version = "0.1.0"
-description = ""
-authors = ["n9d <39367157+n9d@users.noreply.github.com>"]
-
-[tool.poetry.dependencies]
-python = "^3.8"
-
-[tool.poetry.dev-dependencies]
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
-
-
-Do you confirm generation? (yes/no) [yes] yes
-root@af3aa0827d48:/opt/pysetup#
+  • Installing ipython-genutils (0.2.0)
+  • Installing pyparsing (2.4.7)
+  • Installing attrs (21.2.0)
+  • Installing iniconfig (1.1.1)
+  • Installing packaging (20.9)
+  • Installing parso (0.8.2)
+  • Installing pluggy (0.13.1)
+  • Installing ptyprocess (0.7.0)
+  • Installing py (1.10.0)
+  • Installing toml (0.10.2)
+  • Installing traitlets (5.0.5)
+  • Installing wcwidth (0.2.5)
+  • Installing appdirs (1.4.4)
+  • Installing backcall (0.2.0)
+  • Installing click (8.0.1)
+  • Installing decorator (5.0.9)
+  • Installing jedi (0.18.0)
+  • Installing matplotlib-inline (0.1.2)
+  • Installing mccabe (0.6.1)
+  • Installing mypy-extensions (0.4.3)
+  • Installing pathspec (0.8.1)
+  • Installing pexpect (4.8.0)
+  • Installing pickleshare (0.7.5)
+  • Installing prompt-toolkit (3.0.18)
+  • Installing pycodestyle (2.7.0)
+  • Installing pyflakes (2.3.1)
+  • Installing pygments (2.9.0)
+  • Installing pytest (6.2.4)
+  • Installing regex (2021.4.4)
+  • Installing black (21.5b1)
+  • Installing django-extensions (3.1.3)
+  • Installing flake8 (3.9.2)
+  • Installing ipython (7.23.1)
+  • Installing pytest-django (4.3.0)
 #+END_SRC
 
-
-
-
-
+- その後 =docker-compose build= を行えば =pyproject.toml= に従ったdockerが出来る
 
 * 参考文献
 https://engineers.ffri.jp/entry/2021/05/17/191143 凄く参考になった。

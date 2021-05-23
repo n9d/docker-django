@@ -1,0 +1,64 @@
+* docker-poetry
+
+:目的:dockerのはじめからpoetryを使いたい(pythonの仮想環境を作りたくない)
+
+** pythonのバージョンを変える
+
+- Dockerfileの =FROM python:3.8.8-slim as python-base= を変える
+
+
+** poetry init
+
+#+BEGIN_SRC sh :exports both
+docker-compose -f docker-compose.init.yml build
+docker-compose -f docker-compose.init.yml exec bash
+#+END_SRC
+
+
+以下の２つを実行する（必要なパッケージはここでインストール）
+- =poetry init=
+- =poetry install=
+
+#+BEGIN_SRC sh :exports both
+# poetry init
+
+This command will guide you through creating your pyproject.toml config.
+
+Package name [pysetup]:
+Version [0.1.0]:
+Description []:
+Author [n9d <39367157+n9d@users.noreply.github.com>, n to skip]:
+License []:
+Compatible Python versions [^3.8]:
+
+Would you like to define your main dependencies interactively? (yes/no) [yes] no
+Would you like to define your development dependencies interactively? (yes/no) [yes] no
+Generated file
+
+[tool.poetry]
+name = "pysetup"
+version = "0.1.0"
+description = ""
+authors = ["n9d <39367157+n9d@users.noreply.github.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+Do you confirm generation? (yes/no) [yes] yes
+root@af3aa0827d48:/opt/pysetup#
+#+END_SRC
+
+
+
+
+
+
+* 参考文献
+https://engineers.ffri.jp/entry/2021/05/17/191143 凄く参考になった。

@@ -95,6 +95,22 @@ Package operations: 34 installs, 0 updates, 0 removals
 
 - その後 =docker-compose build= を行えば =pyproject.toml= に従ったdockerが出来る
 
+* django の開発開始
+
+- 以下 =docker-compose run app bash= もしくは vscode remote container内でやる前提
+
+
+- myproject プロジェクトを srcディレクトリ起点で行う
+#+BEGIN_SRC sh :exports both
+django-admin startproject myproject src
+cd src
+python manage.py migration
+python manage.py runserver 0.0.0.0:8000
+#+END_SRC
+
+- ブラウザで http://localhost:8000/ にて確認する
+
+
 ** 本番用
 
 #+BEGIN_SRC sh :exports both
@@ -102,5 +118,12 @@ docker-compose -f docker-compose.production.yml build
 docker-compose -f docker-compose.production.yml up
 #+END_SRC
 
-* 参考文献
+
+** やること
+
+- mysql/postgresベースのdjangoの作り方も書く
+- デバッグの仕方を書く(shell_plus)
+- vscode での操作方法を書く
+
+** 参考文献
 https://engineers.ffri.jp/entry/2021/05/17/191143 凄く参考になった。

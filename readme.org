@@ -95,5 +95,12 @@ Package operations: 34 installs, 0 updates, 0 removals
 
 - その後 =docker-compose build= を行えば =pyproject.toml= に従ったdockerが出来る
 
+** 本番用
+
+#+BEGIN_SRC sh :exports both
+docker-compose -f docker-compose.production.yml build
+docker-compose -f docker-compose.production.yml up
+#+END_SRC
+
 * 参考文献
 https://engineers.ffri.jp/entry/2021/05/17/191143 凄く参考になった。

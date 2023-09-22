@@ -9,6 +9,7 @@ services:
     image: python:3.11
     volumes:
       - .:/src
+      - packages:/usr/local/lib/python3.11/site-packages/
     working_dir: /src
     tty: true
     ports:
@@ -18,8 +19,11 @@ services:
             poetry config virtualenvs.create false &&
             poetry config virtualenvs.in-project true &&
             if [ ! -f pyproject.toml ]; then poetry init -q; fi &&
-            poetry install
+            poetry install &&
+            if [ -f manage.py ]; then python manage.py runserver 0.0.0.0:8000; fi &&
             bash"
+volumes:
+  packages:
 ```
 
 ## django導入

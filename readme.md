@@ -38,6 +38,12 @@ $ docker-compose restart
 
 http://localhost:8000/ で参照する
 
+### 開発用の各種パッケージ導入
+
+```sh
+$ docker-compose exec srv poetry add --group dev pytest pytest-django flake8 black django_extensions ipython
+```
+
 ## 本番サーバ用のDockerfile
 
 - Dockerfile参照のこと

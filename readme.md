@@ -32,7 +32,7 @@ volumes:
 $ docker-compose up -d
 ```
 
-一番最初はpoetryのインストール等に時間がかかるので10秒ぐらい待つ（その後は速い）
+一番最初はpoetryのインストール等に時間がかかるので、lsして`pyproject.toml`ができるぐらいまで10秒ぐらい待つ（その後はの起動は速くなるので心配しない）
 
 ```sh
 $ docker-compose exec srv poetry add django

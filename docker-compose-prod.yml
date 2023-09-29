@@ -1,9 +1,7 @@
 services:
   srv:
     build:
-      context:.
+      context: .
       dockerfile: Dockerfile
-    working_dir: /src
-    tty: true
     ports:
       - 8000:8000

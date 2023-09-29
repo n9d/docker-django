@@ -51,5 +51,5 @@ $ docker-compose exec srv poetry add --group dev pytest pytest-django flake8 bla
 ## 本番サーバ用のDockerfile
 
 - Dockerfile参照のこと
-- 必要に応じ gnicornにすること（今回は面倒なのでパス)
+- 必要に応じ gnicornにすること
 

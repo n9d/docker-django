@@ -9,7 +9,7 @@ services:
     ports:
       - 8000:8000
     command: >
-      sh -c "pip install poetry &&
+      sh -c "pip install --force-reinstall poetry &&
             poetry config virtualenvs.create false &&
             poetry config virtualenvs.in-project true &&
             if [ ! -f pyproject.toml ]; then poetry init -q; fi &&
